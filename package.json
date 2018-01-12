@@ -1,0 +1,46 @@
+{
+  "name": "docker-cli",
+  "version": "1.0.0",
+  "description": "Docker Command Line",
+  "main": "index.js",
+  "bin": {
+    "docker-cli": "node docker"
+  },
+  "scripts": {
+    "test": "docker-cli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Weerapat1993/docker-cli.git"
+  },
+  "keywords": [
+    "docker"
+  ],
+  "author": "Weerapat1993",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Weerapat1993/docker-cli/issues"
+  },
+  "homepage": "https://github.com/Weerapat1993/docker-cli#readme",
+  "dependencies": {
+    "case": "^1.5.4",
+    "chalk": "^2.3.0",
+    "cli-table2": "^0.2.0",
+    "fs-extra": "^5.0.0",
+    "inquirer": "^5.0.0",
+    "path": "^0.12.7",
+    "shelljs": "^0.8.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.15.0",
+    "eslint-config-react-app": "^2.0.1",
+    "eslint-plugin-flowtype": "^2.41.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}
