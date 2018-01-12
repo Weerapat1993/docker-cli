@@ -4,7 +4,7 @@ const chalk = require('chalk')
 const shell = require('shelljs')
 const fs = require('fs-extra')
 const { INQUIRER, COMMANDS } = require('./src/config/command-list')
-const { dockerContainer, createImagesJSON } = require('./src/docker')
+const { dockerContainer, createImagesJSON, createDockerImages } = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
 
@@ -39,15 +39,15 @@ const runInquirer = async () => {
       cmdName = `docker pull ${image.name}`
       callback = () => {
         let checkPull = false
-        dockerPull.require.forEach(item => {
+        dockerPull.images.forEach(item => {
           checkPull = item === image.name
         })
         let fileJson = {}
         if(!checkPull) {
           fileJson = {
             ...dockerPull,
-            require: [
-              ...dockerPull.require,
+            images: [
+              ...dockerPull.images,
               image.name,
             ]
           }
@@ -65,6 +65,7 @@ const runInquirer = async () => {
       cmdName = 'docker images'
       callback = () => {
         shell.exec(cmdName, { async: true }, () => {
+          createDockerImages(cmdName)
           console.log(chalk.green('\nrun docker images lists success ...\n'))
         })
       }
@@ -72,7 +73,7 @@ const runInquirer = async () => {
       break
     // Create Docker Container
     case Case.snake(COMMANDS.CREATE_CONTAINER):
-      const dockers = dockerPull.require.map(item => ({
+      const dockers = dockerPull.images.map(item => ({
         name: item
       }))
       const container = await inquirer.prompt([
@@ -87,14 +88,12 @@ const runInquirer = async () => {
           name: "publish_port",
           message: "Publish Port:",
           validate: (value) => validate.number(value),
-          filter: (value) => value || 80
         },
         {
           type: INQUIRER.input,
           name: "docker_port",
           message: "Docker Port:",
           validate: (value) => validate.number(value),
-          filter: (value) => value || 80
         },
         {
           type: INQUIRER.input,

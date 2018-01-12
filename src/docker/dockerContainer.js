@@ -15,9 +15,7 @@ const dockerContainer = () => {
     item.name,
   ]));
   tableContainer.push(...dockerStatus);
-  if (dockerPull.containers.length) {
-    console.log(tableContainer.toString());
-  }
+  console.log(tableContainer.toString());
 };
 
 /**
@@ -46,7 +44,7 @@ const createImagesJSON = async (cmdName) => {
       }
       imagesJSON.push(dataJSON)
     }
-    let fileJson = {
+    const fileJson = {
       ...dockerPull,
       containers: imagesJSON,
     }

@@ -1,13 +1,23 @@
 {
-  "require": [],
-  "images": [],
+  "images": [
+    "laradock_redis",
+    "redis",
+    "mysql",
+    "ghost",
+    "mysql",
+    "nginx",
+    "kitematic/minecraft",
+    "itzg/minecraft-server",
+    "nginx",
+    "kitematic/hello-world-nginx"
+  ],
   "containers": [
     {
       "containerID": "fd2ce4e66ce6",
       "image": "mysql:latest",
       "command": "docker-entrypoint.s…",
-      "created": "About an hour ago",
-      "status": "Exited (1) About an hour ago",
+      "created": "2 hours ago",
+      "status": "Exited (1) 2 hours ago",
       "name": "mysql"
     },
     {
