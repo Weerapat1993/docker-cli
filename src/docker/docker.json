@@ -1,40 +1,33 @@
 {
   "images": [
-    "laradock_redis",
-    "redis",
-    "mysql",
-    "ghost",
-    "mysql",
+    "laradock_nginx",
+    "laradock_php-fpm",
+    "laradock_workspace",
+    "laradock_mysql",
     "nginx",
-    "kitematic/minecraft",
-    "itzg/minecraft-server",
-    "nginx",
-    "kitematic/hello-world-nginx"
+    "hitalos/laravel",
+    "phpmyadmin/phpmyadmin",
+    "laradock/php-fpm",
+    "laradock/workspace",
+    "tianon/true",
+    "mysql"
   ],
   "containers": [
     {
-      "containerID": "fd2ce4e66ce6",
-      "image": "mysql:latest",
+      "containerID": "e17d2f41253d",
+      "image": "phpmyadmin/phpmyadmin",
+      "command": "/run.sh phpmyadmin",
+      "created": "5 minutes ago",
+      "status": "Up 5 minutes        0.0.0.0:8080->80/tcp   myadmin ago",
+      "name": "myadmin"
+    },
+    {
+      "containerID": "838e56b8c3f4",
+      "image": "mysql",
       "command": "docker-entrypoint.s…",
-      "created": "2 hours ago",
-      "status": "Exited (1) 2 hours ago",
-      "name": "mysql"
-    },
-    {
-      "containerID": "eb58329635f9",
-      "image": "nginx:latest",
-      "command": "nginx -g 'daemon of…",
-      "created": "5 days ago",
-      "status": "Exited (0) 4 days ago",
-      "name": "hellomobydock"
-    },
-    {
-      "containerID": "d478025307a2",
-      "image": "itzg/minecraft-server",
-      "command": "/start",
-      "created": "12 months ago",
-      "status": "Exited (0) 12 months ago",
-      "name": "mc"
+      "created": "12 minutes ago",
+      "status": "Up 12 minutes       3306/tcp               some-mysql ago",
+      "name": "some-mysql"
     }
   ]
 }

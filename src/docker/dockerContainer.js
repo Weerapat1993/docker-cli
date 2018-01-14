@@ -5,13 +5,12 @@ const dockerJSON = path('./src/docker/docker.json');
 
 const dockerContainer = () => {
   const dockerPull = fs.readJsonSync(dockerJSON)
-  const tableContainer = createTable(['CONTAINER ID', 'IMAGE', 'COMMAND', 'CREATE', 'STATUS', 'NAMES']);
+  const tableContainer = createTable(['CONTAINER ID', 'IMAGE', 'COMMAND', 'CREATE', 'NAMES']);
   const dockerStatus = dockerPull.containers.map(item => ([
     item.containerID,
     item.image,
     item.command,
     item.created,
-    item.status,
     item.name,
   ]));
   tableContainer.push(...dockerStatus);

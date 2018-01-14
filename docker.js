@@ -40,7 +40,7 @@ const runInquirer = async () => {
       callback = () => {
         let checkPull = false
         dockerPull.images.forEach(item => {
-          checkPull = item === image.name
+          if(checkPull) checkPull = item === image.name
         })
         let fileJson = {}
         if(!checkPull) {
@@ -122,7 +122,11 @@ const runInquirer = async () => {
         },
       ])
       cmdName = `docker run --name ${container.name} -p ${container.publish_port}:${container.docker_port} -v ${container.publish_volume}:${container.docker_volume} -d ${container.images}`
-      callback = () => console.log(cmdName)
+      callback = () => {
+        shell.exec(cmdName, { async: true }, () => {
+          console.log(chalk.green('\ncreate docker container success ...\n'))
+        })
+      }
       break
     default:
       cmdName = ''
