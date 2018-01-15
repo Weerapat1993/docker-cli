@@ -1,10 +1,10 @@
-const inquirer = require('inquirer');
+const inquirer = require('inquirer')
 const Case = require('case')
 const chalk = require('chalk')
 const shell = require('shelljs')
 const fs = require('fs-extra')
 const { INQUIRER, COMMANDS } = require('./src/config/command-list')
-const { dockerContainer, createImagesJSON, createDockerImages } = require('./src/docker')
+const { createImagesJSON, createDockerImages } = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
 
