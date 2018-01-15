@@ -9,7 +9,7 @@
       "image": "phpmyadmin/phpmyadmin",
       "command": "/run.sh phpmyadmin",
       "created": "2 hours ago",
-      "status": "Exited (0) 18 seconds ago",
+      "status": "Exited (0) 3 seconds ago",
       "status_server": false,
       "port": "",
       "name": "phpmyadmin"
@@ -19,7 +19,7 @@
       "image": "mysql",
       "command": "docker-entrypoint.s…",
       "created": "2 hours ago",
-      "status": "Up 21 seconds ago",
+      "status": "Up 4 seconds ago",
       "status_server": true,
       "port": "0.0.0.0:3306->3306/tcp",
       "name": "mysql_db_server"

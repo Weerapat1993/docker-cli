@@ -103,7 +103,7 @@ const dockerContainer = async (containers) => {
             shell.exec(cmdStop, { async: true }, () => {
               console.log(`\n[RUN]: ${onColor(cmdStop)} success ...\n`)
             })
-          }, true)
+          })
         }
       })
     }, true)
