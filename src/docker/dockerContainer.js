@@ -5,12 +5,14 @@ const dockerJSON = path('./src/docker/docker.json');
 
 const dockerContainer = () => {
   const dockerPull = fs.readJsonSync(dockerJSON)
-  const tableContainer = createTable(['CONTAINER ID', 'IMAGE', 'COMMAND', 'CREATE', 'NAMES']);
+  const tableContainer = createTable(['CONTAINER ID', 'IMAGE', 'COMMAND', 'CREATE', 'STATUS','PORT', 'NAMES']);
   const dockerStatus = dockerPull.containers.map(item => ([
     item.containerID,
     item.image,
     item.command,
     item.created,
+    item.status,
+    item.port,
     item.name,
   ]));
   tableContainer.push(...dockerStatus);
@@ -23,15 +25,17 @@ const dockerContainer = () => {
  */
 const createImagesJSON = async (cmdName) => {
   const imagesJSON = []
-  const dockerPull = fs.readJsonSync(dockerJSON)
   await shell.exec(cmdName, { async: true, silent: true }, (code, stdout, stderr) => {
+    const dockerPull = fs.readJsonSync(dockerJSON)
     const data = stdout.split('\n')
     for(let i = 1; i < data.length - 1; i++) {
       const dataContainer = data[i].split('  ').slice(0,5)
       const dataCommand = data[i].split('"')
       const dataCreated = data[i].split('"')[2].trim().split('   ')[0]
-      const dataStatus = data[i].split('ago')[1].trim()
+      const dataStatus = data[i].split('ago')[1].trim().split('  ')[0]
+      let dataPort = data[i].split('ago')[1].trim().split('  ').slice(1).join('')
       const dataName = dataCommand[2].split('  ')[dataCommand[2].split('  ').length - 1].trim()
+      dataPort = dataPort.replace(dataName, '').trim()
       const dataContainerTrim = dataContainer.map(item => item.trim())
       const dataJSON = {
         containerID: dataContainerTrim[0],
@@ -39,6 +43,7 @@ const createImagesJSON = async (cmdName) => {
         command: dataCommand[1],
         created: dataCreated,
         status: `${dataStatus} ago`,
+        port: dataPort,
         name: dataName,
       }
       imagesJSON.push(dataJSON)

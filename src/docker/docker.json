@@ -1,33 +1,65 @@
 {
   "images": [
-    "laradock_nginx",
-    "laradock_php-fpm",
-    "laradock_workspace",
-    "laradock_mysql",
+    "<none>",
+    "php",
+    "mongo",
     "nginx",
-    "hitalos/laravel",
-    "phpmyadmin/phpmyadmin",
-    "laradock/php-fpm",
-    "laradock/workspace",
-    "tianon/true",
-    "mysql"
+    "mysql",
+    "memcached",
+    "elasticsearch",
+    "redis",
+    "mysql",
+    "redis",
+    "eboraas/laravel",
+    "composer/composer",
+    "nginx",
+    "rabbitmq"
   ],
   "containers": [
     {
-      "containerID": "e17d2f41253d",
+      "containerID": "c2633dfec4bc",
       "image": "phpmyadmin/phpmyadmin",
       "command": "/run.sh phpmyadmin",
-      "created": "5 minutes ago",
-      "status": "Up 5 minutes        0.0.0.0:8080->80/tcp   myadmin ago",
-      "name": "myadmin"
+      "created": "10 seconds ago",
+      "status": "Up 10 seconds ago",
+      "port": "0.0.0.0:8080->80/tcp",
+      "name": "phpmyadmin"
     },
     {
-      "containerID": "838e56b8c3f4",
+      "containerID": "d2dd117a2d82",
       "image": "mysql",
       "command": "docker-entrypoint.s…",
-      "created": "12 minutes ago",
-      "status": "Up 12 minutes       3306/tcp               some-mysql ago",
-      "name": "some-mysql"
+      "created": "11 minutes ago",
+      "status": "Up 11 minutes ago",
+      "port": "3306/tcp",
+      "name": "mysql_db_server"
+    },
+    {
+      "containerID": "ed8b61aa3c41",
+      "image": "ba35edae1e72",
+      "command": "/bin/sh -c 'apt-get…",
+      "created": "7 days ago",
+      "status": "Exited (100) 7 days ago",
+      "port": "",
+      "name": "wonderful_swirles"
+    },
+    {
+      "containerID": "6c329dcb18be",
+      "image": "ba35edae1e72",
+      "command": "/bin/sh -c 'apt-get…",
+      "created": "7 days ago",
+      "status": "Exited (100) 7 days ago",
+      "port": "",
+      "name": "loving_beaver"
+    },
+    {
+      "containerID": "1707cdabfdcf",
+      "image": "nginx:1.9",
+      "command": "nginx -g 'daemon of…",
+      "created": "7 days ago",
+      "status": "Exited (0) 7 days ago",
+      "port": "",
+      "name": "start-docker"
     }
   ]
 }
