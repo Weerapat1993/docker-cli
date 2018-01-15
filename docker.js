@@ -71,7 +71,7 @@ const runInquirer = async () => {
           console.log(chalk.green('\nrun docker images lists success ...\n'))
         })
       }
-      
+      isConfirm = false
       break
     // Create Docker Container
     case Case.snake(COMMANDS.CREATE_CONTAINER):
