@@ -1,65 +1,26 @@
 {
   "images": [
-    "<none>",
-    "php",
-    "mongo",
-    "nginx",
-    "mysql",
-    "memcached",
-    "elasticsearch",
-    "redis",
-    "mysql",
-    "redis",
-    "eboraas/laravel",
-    "composer/composer",
-    "nginx",
-    "rabbitmq"
+    "phpmyadmin/phpmyadmin",
+    "mysql"
   ],
   "containers": [
     {
-      "containerID": "c2633dfec4bc",
+      "containerID": "682a2cb10dee",
       "image": "phpmyadmin/phpmyadmin",
       "command": "/run.sh phpmyadmin",
-      "created": "19 minutes ago",
-      "status": "Up 19 minutes ago",
+      "created": "About a minute ago",
+      "status": "Up About a minute ago",
       "port": "0.0.0.0:8080->80/tcp",
       "name": "phpmyadmin"
     },
     {
-      "containerID": "d2dd117a2d82",
+      "containerID": "190e72c73e1a",
       "image": "mysql",
       "command": "docker-entrypoint.s…",
-      "created": "30 minutes ago",
-      "status": "Up 30 minutes ago",
-      "port": "3306/tcp",
+      "created": "2 minutes ago",
+      "status": "Up 2 minutes ago",
+      "port": "0.0.0.0:3306->3306/tcp",
       "name": "mysql_db_server"
-    },
-    {
-      "containerID": "ed8b61aa3c41",
-      "image": "ba35edae1e72",
-      "command": "/bin/sh -c 'apt-get…",
-      "created": "7 days ago",
-      "status": "Exited (100) 7 days ago",
-      "port": "",
-      "name": "wonderful_swirles"
-    },
-    {
-      "containerID": "6c329dcb18be",
-      "image": "ba35edae1e72",
-      "command": "/bin/sh -c 'apt-get…",
-      "created": "7 days ago",
-      "status": "Exited (100) 7 days ago",
-      "port": "",
-      "name": "loving_beaver"
-    },
-    {
-      "containerID": "1707cdabfdcf",
-      "image": "nginx:1.9",
-      "command": "nginx -g 'daemon of…",
-      "created": "7 days ago",
-      "status": "Up 21 seconds ago",
-      "port": "80/tcp, 443/tcp, 0.0.0.0:80->9000/tcp",
-      "name": "start-docker"
     }
   ]
 }

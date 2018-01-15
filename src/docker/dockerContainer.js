@@ -3,10 +3,9 @@ const shell = require('shelljs')
 const { createTable, path } = require('../utils');
 const dockerJSON = path('./src/docker/docker.json');
 
-const dockerContainer = () => {
-  const dockerPull = fs.readJsonSync(dockerJSON)
+const dockerContainer = (containers) => {
   const tableContainer = createTable(['CONTAINER ID', 'IMAGE', 'COMMAND', 'CREATE', 'STATUS','PORT', 'NAMES']);
-  const dockerStatus = dockerPull.containers.map(item => ([
+  const dockerStatus = containers.map(item => ([
     item.containerID,
     item.image,
     item.command,
@@ -53,8 +52,8 @@ const createImagesJSON = async (cmdName) => {
       containers: imagesJSON,
     }
     fs.writeFileSync(dockerJSON, JSON.stringify(fileJson, null, '  '))
+    dockerContainer(imagesJSON)
   })
-  await dockerContainer()
 }
 
 exports.dockerContainer = dockerContainer;
