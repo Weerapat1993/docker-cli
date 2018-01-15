@@ -21,11 +21,13 @@ const runInquirer = async () => {
   ])
   let cmdName = ''
   let callback = () => null
+  let isConfirm = true
   switch(data.docker_type) {
     // Docker Status
     case Case.snake(COMMANDS.PS_ALL):
       cmdName = 'docker ps -a'
       callback = () => createImagesJSON(cmdName)
+      isConfirm = false
       break
     // Docker Pull Image
     case Case.snake(COMMANDS.PULL):
@@ -132,7 +134,7 @@ const runInquirer = async () => {
       cmdName = ''
   }
   // Run Command
-  await runConfirm(cmdName, callback)
+  await runConfirm(cmdName, callback, isConfirm)
 }
 
 // Run

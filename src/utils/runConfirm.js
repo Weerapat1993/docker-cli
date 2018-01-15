@@ -7,23 +7,27 @@ const { INQUIRER } = require('../config/command-list')
  * @param {string} cmdName 
  * @param {function} callback 
  */
-const runConfirm = async (cmdName, callback) => {
-  if(cmdName) {
-    console.log(`\nCommand: ${chalk.green(`${cmdName}\n`)}`)
-    const confirm = await inquirer.prompt([
-      {
-        type: INQUIRER.confirm,
-        name: "isConfirm",
-        message: "Do you want to start docker command?",
+const runConfirm = async (cmdName, callback, isConfirm) => {
+  if(isConfirm) {
+    if(cmdName) {
+      console.log(`\nCommand: ${chalk.green(`${cmdName}\n`)}`)
+      const confirm = await inquirer.prompt([
+        {
+          type: INQUIRER.confirm,
+          name: "isConfirm",
+          message: "Do you want to start docker command?",
+        }
+      ])
+      if(confirm.isConfirm) {
+        callback()
+      } else {
+        console.log(chalk.red('Error: Exit.'))
       }
-    ])
-    if(confirm.isConfirm) {
-      callback()
     } else {
-      console.log(chalk.red('Error: Exit.'))
+      console.log(chalk.red('Error: Command is not found.'))
     }
   } else {
-    console.log(chalk.red('Error: Command is not found.'))
+    callback()
   }
 }
 

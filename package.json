@@ -4,7 +4,7 @@
   "description": "Docker Command Line",
   "main": "docker.js",
   "bin": {
-    "docker-cli": "docker.js"
+    "dock-cli": "docker.js"
   },
   "repository": {
     "type": "git",
