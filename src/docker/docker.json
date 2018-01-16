@@ -6,21 +6,11 @@
   ],
   "containers": [
     {
-      "containerID": "b4d6b14ef6fb",
-      "image": "mongo",
-      "command": "docker-entrypoint.s…",
-      "created": "8 minutes ago",
-      "status": "Up 8 minutes ago",
-      "status_server": true,
-      "port": "0.0.0.0:27017->27017/tcp",
-      "name": "mongodb"
-    },
-    {
       "containerID": "682a2cb10dee",
       "image": "phpmyadmin/phpmyadmin",
       "command": "/run.sh phpmyadmin",
       "created": "25 hours ago",
-      "status": "Exited (0) 12 minutes ago",
+      "status": "Exited (0) 22 minutes ago",
       "status_server": false,
       "port": "",
       "name": "phpmyadmin"
@@ -30,7 +20,7 @@
       "image": "mysql",
       "command": "docker-entrypoint.s…",
       "created": "25 hours ago",
-      "status": "Exited (0) 12 minutes ago",
+      "status": "Exited (0) 20 seconds ago",
       "status_server": false,
       "port": "",
       "name": "mysql_db_server"
