@@ -8,8 +8,8 @@
       "containerID": "7b8a3786f3cc",
       "image": "mysql",
       "command": "docker-entrypoint.s…",
-      "created": "18 hours ago",
-      "status": "Up 49 seconds ago",
+      "created": "19 hours ago",
+      "status": "Up About an hour ago",
       "status_server": true,
       "port": "0.0.0.0:3306->3306/tcp",
       "name": "mysql_db_server"
@@ -18,10 +18,10 @@
       "containerID": "c2633dfec4bc",
       "image": "phpmyadmin/phpmyadmin",
       "command": "/run.sh phpmyadmin",
-      "created": "25 hours ago",
-      "status": "Up 48 seconds ago",
-      "status_server": true,
-      "port": "0.0.0.0:8080->80/tcp",
+      "created": "26 hours ago",
+      "status": "Exited (0) 2 seconds ago",
+      "status_server": false,
+      "port": "",
       "name": "phpmyadmin"
     }
   ]

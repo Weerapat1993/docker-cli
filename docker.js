@@ -113,7 +113,7 @@ const runInquirer = async () => {
           type: INQUIRER.input,
           name: "docker_volume",
           message: "Docker Volume:",
-          filter: (value) => value || '/var/www/html'
+          filter: (value) => value || '/var/www'
         },
         {
           type: INQUIRER.checkbox,
@@ -132,7 +132,7 @@ const runInquirer = async () => {
       cmdName = `docker run --name ${container.name} -p ${container.publish_port}:${container.docker_port} -v ${container.publish_volume}:${container.docker_volume} -d ${container.images}`
       callback = () => {
         shell.exec(cmdName, { async: true }, () => {
-          console.log(chalk.green('\ncreate docker container success ...\n'))
+          console.log(chalk.green('\n[CREATE]: docker container success ...\n'))
         })
       }
       break
