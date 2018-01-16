@@ -44,7 +44,10 @@ const dockerRemoveImages = async (images) => {
         type: INQUIRER.list,
         name: "images",
         message: "Please Select for Remove Docker Images:",
-        choices: imagesData,
+        choices: [
+          ...imagesData,
+          new inquirer.Separator()
+        ],
       },
     ])
     const imageName = dataJSON.images

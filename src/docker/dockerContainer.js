@@ -75,7 +75,10 @@ const dockerContainer = async (containers) => {
         type: INQUIRER.checkbox,
         name: "containers",
         message: "Please Select Docker Container:",
-        choices: containersData,
+        choices: [
+          ...containersData,
+          new inquirer.Separator(),
+        ],
         filter: (value) => containers.map(item => {
           let changed = value.filter(name => item.name === name).length ? true : false
           if(changed !== item.status_server) {
