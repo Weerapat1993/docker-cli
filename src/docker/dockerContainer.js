@@ -69,52 +69,56 @@ const dockerContainer = async (containers) => {
     name: item.name,
     checked: item.status_server
   })).reverse()
-  const dataJSON = await inquirer.prompt([
-    {
-      type: INQUIRER.checkbox,
-      name: "containers",
-      message: "Please Select Docker Container:",
-      choices: containersData,
-      filter: (value) => containers.map(item => {
-        let changed = value.filter(name => item.name === name).length ? true : false
-        if(changed !== item.status_server) {
-          return {
-            container: item.name,
-            status: changed
+  if(containersData.length) {
+    const dataJSON = await inquirer.prompt([
+      {
+        type: INQUIRER.checkbox,
+        name: "containers",
+        message: "Please Select Docker Container:",
+        choices: containersData,
+        filter: (value) => containers.map(item => {
+          let changed = value.filter(name => item.name === name).length ? true : false
+          if(changed !== item.status_server) {
+            return {
+              container: item.name,
+              status: changed
+            }
+          } else {
+            return {
+              container: '',
+              status: changed
+            }
           }
-        } else {
-          return {
-            container: '',
-            status: changed
+        }),
+      },
+    ])
+    const startServer = dataJSON.containers.filter(data => data.status === true).map(item => item.container).join(' ').trim()
+    const stopServer = dataJSON.containers.filter(data => data.status === false).map(item => item.container).join(' ').trim()
+    // console.log(JSON.stringify(startServer, null, '  '))
+    // console.log(JSON.stringify(stopServer, null, '  '))
+    
+    const cmdStart = `docker start ${startServer}`
+    const cmdStop = `docker stop ${stopServer}`
+    if (startServer) {
+      await runConfirm(cmdStart, () => {
+        shell.exec(cmdStart, { async: true }, () => {
+          console.log(`\n[RUN]: ${chalk.green(cmdStart)} success ...\n`)
+          if (stopServer) {
+            shell.exec(cmdStop, { async: true }, () => {
+              console.log(`\n[RUN]: ${chalk.green(cmdStop)} success ...\n`)
+            })
           }
-        }
-      }),
-    },
-  ])
-  const startServer = dataJSON.containers.filter(data => data.status === true).map(item => item.container).join(' ').trim()
-  const stopServer = dataJSON.containers.filter(data => data.status === false).map(item => item.container).join(' ').trim()
-  // console.log(JSON.stringify(startServer, null, '  '))
-  // console.log(JSON.stringify(stopServer, null, '  '))
-  
-  const cmdStart = `docker start ${startServer}`
-  const cmdStop = `docker stop ${stopServer}`
-  if (startServer) {
-    await runConfirm(cmdStart, () => {
-      shell.exec(cmdStart, { async: true }, () => {
-        console.log(`\n[RUN]: ${chalk.green(cmdStart)} success ...\n`)
-        if (stopServer) {
-          shell.exec(cmdStop, { async: true }, () => {
-            console.log(`\n[RUN]: ${chalk.green(cmdStop)} success ...\n`)
-          })
-        }
-      })
-    }, true)
-  } else if(stopServer) {
-    await runConfirm(cmdStop, () => {
-      shell.exec(cmdStop, { async: true }, () => {
-        console.log(`\n[RUN]: ${chalk.green(cmdStop)} success ...\n`)
-      })
-    }, true)
+        })
+      }, true)
+    } else if(stopServer) {
+      await runConfirm(cmdStop, () => {
+        shell.exec(cmdStop, { async: true }, () => {
+          console.log(`\n[RUN]: ${chalk.green(cmdStop)} success ...\n`)
+        })
+      }, true)
+    }
+  } else {
+    console.log(chalk.red('\nError: Cannot remove all container is running ..\n'))
   }
 };
 

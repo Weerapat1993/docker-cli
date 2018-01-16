@@ -4,7 +4,14 @@ const chalk = require('chalk')
 const shell = require('shelljs')
 const fs = require('fs-extra')
 const { INQUIRER, COMMANDS } = require('./src/config/command-list')
-const { createDockerImages, dockerContainer, dockerPsAll, dockerRemoveContainer } = require('./src/docker')
+const { 
+  createDockerImages, 
+  dockerContainer,
+  dockerPsAll, 
+  dockerRemoveContainer, 
+  dockerTableImages, 
+  dockerRemoveImages,
+} = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
 
@@ -46,34 +53,19 @@ const runInquirer = async () => {
       ])
       cmdName = `docker pull ${image.name}`
       callback = () => {
-        let checkPull = false
-        dockerPull.images.forEach(item => {
-          if(checkPull) checkPull = item === image.name
-        })
-        let fileJson = {}
-        if(!checkPull) {
-          fileJson = {
-            ...dockerPull,
-            images: [
-              ...dockerPull.images,
-              image.name,
-            ]
-          }
-        } else {
-          fileJson = dockerPull
-        }
-        fs.writeFileSync(dockerJSON, JSON.stringify(fileJson, null, '  '))
         shell.exec(cmdName, { async: true }, () => {
           console.log(chalk.green('\ninstall docker image success ...\n'))
+          createDockerImages('docker images', dockerTableImages)
+          console.log(chalk.green('\nrun docker images lists success ...\n'))
         })
       }
       break
-    // Docker Pull Image
+    // Docker Images
     case Case.snake(COMMANDS.IMAGES):
       cmdName = 'docker images'
       callback = () => {
         shell.exec(cmdName, { async: true }, () => {
-          createDockerImages(cmdName)
+          createDockerImages(cmdName, dockerRemoveImages)
           console.log(chalk.green('\nrun docker images lists success ...\n'))
         })
       }

@@ -1,52 +1,39 @@
 {
   "images": [
-    "<none>",
-    "php",
     "mongo",
-    "nginx",
     "mysql",
-    "phpmyadmin/phpmyadmin",
-    "memcached",
-    "elasticsearch",
-    "redis",
-    "mysql",
-    "redis",
-    "eboraas/laravel",
-    "composer/composer",
-    "nginx",
-    "rabbitmq",
-    "tutum/mongodb"
+    "phpmyadmin/phpmyadmin"
   ],
   "containers": [
     {
-      "containerID": "a99e3e796e8a",
+      "containerID": "ed1bde14313c",
       "image": "mongo",
       "command": "docker-entrypoint.s…",
-      "created": "2 minutes ago",
-      "status": "Exited (0) About a minute ago",
+      "created": "7 minutes ago",
+      "status": "Exited (0) 2 seconds ago",
       "status_server": false,
       "port": "",
       "name": "mongodb"
     },
     {
-      "containerID": "7b8a3786f3cc",
-      "image": "mysql",
-      "command": "docker-entrypoint.s…",
-      "created": "21 hours ago",
-      "status": "Exited (0) 6 minutes ago",
-      "status_server": false,
-      "port": "",
-      "name": "mysql_db_server"
-    },
-    {
-      "containerID": "c2633dfec4bc",
+      "containerID": "8be969e85406",
       "image": "phpmyadmin/phpmyadmin",
       "command": "/run.sh phpmyadmin",
-      "created": "28 hours ago",
-      "status": "Exited (0) 2 hours ago",
-      "status_server": false,
-      "port": "",
+      "created": "8 minutes ago",
+      "status": "Up 8 minutes ago",
+      "status_server": true,
+      "port": "0.0.0.0:8080->80/tcp",
       "name": "phpmyadmin"
+    },
+    {
+      "containerID": "e14522d14707",
+      "image": "mysql",
+      "command": "docker-entrypoint.s…",
+      "created": "8 minutes ago",
+      "status": "Up 8 minutes ago",
+      "status_server": true,
+      "port": "0.0.0.0:3306->3306/tcp",
+      "name": "mysql_db_server"
     }
   ]
 }
