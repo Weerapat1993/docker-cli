@@ -9,9 +9,9 @@
       "image": "mysql",
       "command": "docker-entrypoint.s…",
       "created": "18 hours ago",
-      "status": "Exited (0) About a minute ago",
-      "status_server": false,
-      "port": "",
+      "status": "Up 49 seconds ago",
+      "status_server": true,
+      "port": "0.0.0.0:3306->3306/tcp",
       "name": "mysql_db_server"
     },
     {
@@ -19,40 +19,10 @@
       "image": "phpmyadmin/phpmyadmin",
       "command": "/run.sh phpmyadmin",
       "created": "25 hours ago",
-      "status": "Exited (0) 11 minutes ago",
-      "status_server": false,
-      "port": "",
+      "status": "Up 48 seconds ago",
+      "status_server": true,
+      "port": "0.0.0.0:8080->80/tcp",
       "name": "phpmyadmin"
-    },
-    {
-      "containerID": "ed8b61aa3c41",
-      "image": "ba35edae1e72",
-      "command": "/bin/sh -c 'apt-get…",
-      "created": "8 days ago",
-      "status": "Exited (100) 8 days ago",
-      "status_server": false,
-      "port": "",
-      "name": "wonderful_swirles"
-    },
-    {
-      "containerID": "6c329dcb18be",
-      "image": "ba35edae1e72",
-      "command": "/bin/sh -c 'apt-get…",
-      "created": "8 days ago",
-      "status": "Exited (100) 8 days ago",
-      "status_server": false,
-      "port": "",
-      "name": "loving_beaver"
-    },
-    {
-      "containerID": "1707cdabfdcf",
-      "image": "nginx:1.9",
-      "command": "nginx -g 'daemon of…",
-      "created": "8 days ago",
-      "status": "Exited (0) 17 hours ago",
-      "status_server": false,
-      "port": "",
-      "name": "start-docker"
     }
   ]
 }
