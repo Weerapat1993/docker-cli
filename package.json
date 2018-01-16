@@ -4,7 +4,7 @@
   "description": "Docker Command Line",
   "main": "index.js",
   "bin": {
-    "dock-cli": "index.js"
+    "docker-cli": "./index.js"
   },
   "repository": {
     "type": "git",
