@@ -2,9 +2,8 @@
   "name": "docker-cli",
   "version": "1.0.0",
   "description": "Docker Command Line",
-  "main": "index.js",
   "bin": {
-    "docker-cli": "./index.js"
+    "docker-cli": "./cmd.js"
   },
   "repository": {
     "type": "git",
