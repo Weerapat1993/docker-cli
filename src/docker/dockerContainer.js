@@ -6,7 +6,7 @@ const { HEADER, INQUIRER } = require('../config/command-list')
 const { createTable, path, runConfirm } = require('../utils');
 const dockerJSON = path('./src/docker/docker.json');
 
-const dockerContainer = async (containers) => {
+const dockerTableContainer = (containers) => {
   const headerColor = chalk.red
   const onColor = chalk.green
   const offColor = chalk.default
@@ -59,6 +59,10 @@ const dockerContainer = async (containers) => {
   });
   tableContainer.push(...dockerStatus);
   console.log(tableContainer.toString());
+}
+
+const dockerContainer = async (containers) => {
+  dockerTableContainer(containers)
 
   // Menu
   const containersData = containers.map(item => ({
@@ -92,19 +96,23 @@ const dockerContainer = async (containers) => {
   // console.log(JSON.stringify(startServer, null, '  '))
   // console.log(JSON.stringify(stopServer, null, '  '))
   
+  const cmdStart = `docker start ${startServer}`
+  const cmdStop = `docker stop ${stopServer}`
   if (startServer) {
-    const cmdStart = `docker start ${startServer}`
-    const cmdStop = `docker stop ${stopServer}`
     await runConfirm(cmdStart, () => {
       shell.exec(cmdStart, { async: true }, () => {
-        console.log(`\n[RUN]: ${onColor(cmdStart)} success ...\n`)
+        console.log(`\n[RUN]: ${chalk.green(cmdStart)} success ...\n`)
         if (stopServer) {
-          runConfirm(cmdStop, () => {
-            shell.exec(cmdStop, { async: true }, () => {
-              console.log(`\n[RUN]: ${onColor(cmdStop)} success ...\n`)
-            })
+          shell.exec(cmdStop, { async: true }, () => {
+            console.log(`\n[RUN]: ${chalk.green(cmdStop)} success ...\n`)
           })
         }
+      })
+    }, true)
+  } else if(stopServer) {
+    await runConfirm(cmdStop, () => {
+      shell.exec(cmdStop, { async: true }, () => {
+        console.log(`\n[RUN]: ${chalk.green(cmdStop)} success ...\n`)
       })
     }, true)
   }
@@ -114,7 +122,7 @@ const dockerContainer = async (containers) => {
  * Create Images JSON
  * @param {string} cmdName
  */
-const createImagesJSON = async (cmdName) => {
+const dockerPsAll = async (cmdName, callback) => {
   const imagesJSON = []
   await shell.exec(cmdName, { async: true, silent: true }, (code, stdout, stderr) => {
     const dockerPull = fs.readJsonSync(dockerJSON)
@@ -146,10 +154,12 @@ const createImagesJSON = async (cmdName) => {
       containers: imagesJSON,
     }
     fs.writeFileSync(dockerJSON, JSON.stringify(fileJson, null, '  '))
-    dockerContainer(imagesJSON)
+    callback(imagesJSON)
   })
 }
 
 exports.dockerContainer = dockerContainer;
-exports.createImagesJSON = createImagesJSON
+exports.dockerPsAll = dockerPsAll;
+exports.dockerTableContainer = dockerTableContainer;
+
 

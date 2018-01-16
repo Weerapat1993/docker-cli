@@ -10,6 +10,7 @@ const INQUIRER = {
 
 const COMMANDS = {
   PS_ALL: "Docker Container Status",
+  REMOVE: "Docker Remove Container",
   PULL: "Docker Pull Image",
   IMAGES: "Docker Images",
   CREATE_CONTAINER: "Create Docker Container",

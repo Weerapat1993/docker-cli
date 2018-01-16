@@ -4,7 +4,7 @@ const chalk = require('chalk')
 const shell = require('shelljs')
 const fs = require('fs-extra')
 const { INQUIRER, COMMANDS } = require('./src/config/command-list')
-const { createImagesJSON, createDockerImages } = require('./src/docker')
+const { createDockerImages, dockerContainer, dockerPsAll, dockerRemoveContainer } = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
 
@@ -26,7 +26,13 @@ const runInquirer = async () => {
     // Docker Status
     case Case.snake(COMMANDS.PS_ALL):
       cmdName = 'docker ps -a'
-      callback = () => createImagesJSON(cmdName)
+      callback = () => dockerPsAll(cmdName, dockerContainer)
+      isConfirm = false
+      break
+    // Remove Docker Container
+    case Case.snake(COMMANDS.REMOVE):
+      cmdName = 'docker ps -a'
+      callback = () => dockerPsAll(cmdName, dockerRemoveContainer)
       isConfirm = false
       break
     // Docker Pull Image
@@ -137,5 +143,4 @@ const runInquirer = async () => {
   await runConfirm(cmdName, callback, isConfirm)
 }
 
-// Run
-runInquirer()
+module.exports = runInquirer
