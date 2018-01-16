@@ -1,38 +1,38 @@
 {
   "images": [
     "mongo",
-    "mysql",
-    "phpmyadmin/phpmyadmin"
+    "phpmyadmin/phpmyadmin",
+    "mysql"
   ],
   "containers": [
     {
-      "containerID": "ed1bde14313c",
+      "containerID": "b4d6b14ef6fb",
       "image": "mongo",
       "command": "docker-entrypoint.s…",
-      "created": "14 minutes ago",
-      "status": "Exited (0) 7 minutes ago",
-      "status_server": false,
-      "port": "",
+      "created": "8 minutes ago",
+      "status": "Up 8 minutes ago",
+      "status_server": true,
+      "port": "0.0.0.0:27017->27017/tcp",
       "name": "mongodb"
     },
     {
-      "containerID": "8be969e85406",
+      "containerID": "682a2cb10dee",
       "image": "phpmyadmin/phpmyadmin",
       "command": "/run.sh phpmyadmin",
-      "created": "15 minutes ago",
-      "status": "Up 15 minutes ago",
-      "status_server": true,
-      "port": "0.0.0.0:8080->80/tcp",
+      "created": "25 hours ago",
+      "status": "Exited (0) 12 minutes ago",
+      "status_server": false,
+      "port": "",
       "name": "phpmyadmin"
     },
     {
-      "containerID": "e14522d14707",
+      "containerID": "190e72c73e1a",
       "image": "mysql",
       "command": "docker-entrypoint.s…",
-      "created": "15 minutes ago",
-      "status": "Up 15 minutes ago",
-      "status_server": true,
-      "port": "0.0.0.0:3306->3306/tcp",
+      "created": "25 hours ago",
+      "status": "Exited (0) 12 minutes ago",
+      "status_server": false,
+      "port": "",
       "name": "mysql_db_server"
     }
   ]

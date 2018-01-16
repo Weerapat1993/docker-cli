@@ -36,12 +36,13 @@ const createDockerImages = async (cmdName, callback) => {
 const dockerRemoveImages = async (images) => {
   dockerTableImages(images)
   // Menu
-  const imagesData = images.map(item => item)
-  
+  const imagesData = images.map(item => ({
+    name: item,
+  }))
   if(imagesData.length) {
     const dataJSON = await inquirer.prompt([
       {
-        type: INQUIRER.list,
+        type: INQUIRER.checkbox,
         name: "images",
         message: "Please Select for Remove Docker Images:",
         choices: [
@@ -50,7 +51,7 @@ const dockerRemoveImages = async (images) => {
         ],
       },
     ])
-    const imageName = dataJSON.images
+    const imageName = dataJSON.images.join(' ')
     if(imageName) {
       const cmdName = `docker rmi ${imageName}`
       const callback = () => {
