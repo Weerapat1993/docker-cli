@@ -3,7 +3,8 @@
 
 ### How to use
 ```sh
-npm i -g docker-cli
+git clone https://github.com/Weerapat1993/docker-cli.git
+sudo npm i -g
 dcoker-cli
 ```
 
