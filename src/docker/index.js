@@ -1,7 +1,7 @@
 const { dockerContainer, dockerPsAll, dockerTableContainer } = require('./dockerContainer');
 const { dockerRemoveContainer } = require('./dockerRemoveContainer')
 const { createDockerImages, dockerTableImages, dockerRemoveImages } = require('./dockerImage')
-const { dockerCompose } = require('./dcokerCompose')
+const { dockerCompose } = require('./dockerCompose')
 
 exports.dockerContainer = dockerContainer;
 exports.dockerRemoveContainer = dockerRemoveContainer;
