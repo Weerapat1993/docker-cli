@@ -12,6 +12,7 @@ const {
   dockerTableImages, 
   dockerRemoveImages,
   dockerCompose,
+  dockerClean,
 } = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
@@ -31,7 +32,15 @@ const runInquirer = async () => {
   let callback = () => null
   let isConfirm = true
   switch(data.docker_type) {
-    // Docker Status
+    // Docker Clean
+    case Case.snake(COMMANDS.CLEAN):
+      cmdName = 'docker'
+      callback = () => dockerClean(() => {
+        console.log(chalk.green('Done.'))
+      })
+      isConfirm = false
+      break
+    // Docker Compose
     case Case.snake(COMMANDS.COMPOSE):
       cmdName = 'docker-compose'
       callback = () => dockerCompose(() => {

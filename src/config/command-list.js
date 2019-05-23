@@ -15,6 +15,7 @@ const COMMANDS = {
   PULL: "Docker Pull Images",
   IMAGES: "Docker Remove Images",
   CREATE_CONTAINER: "Create Docker Container",
+  CLEAN: "Docker Clean",
 }
 
 const HEADER = {
