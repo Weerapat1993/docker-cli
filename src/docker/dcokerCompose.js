@@ -9,20 +9,11 @@ const dockerCompose = async (callback) => {
       type: INQUIRER.list,
       name: "docker_compose",
       message: "What do you want to run command docker-compose ?",
-      choices: ['UP', 'DOWN'],
+      choices: ['docker-compose up -d', 'docker-compose down'],
       filter: (value) => value,
     }
   ])
-  switch (data.docker_compose) {
-    case 'UP':
-      cmd = 'docker-compose up -d'
-      break;
-    case 'DOWN':
-      cmd = 'docker-compose down'
-      break;
-    default:
-      cmd = 'docker-compose down'
-  }
+  cmd = data.docker_compose
   await shell.exec(cmd, { async: true, silent: false }, (code, stdout, stderr) => {
     if(!code) {
       callback()
