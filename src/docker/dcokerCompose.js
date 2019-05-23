@@ -24,7 +24,9 @@ const dockerCompose = async (callback) => {
       cmd = 'docker-compose down'
   }
   await shell.exec(cmd, { async: true, silent: false }, (code, stdout, stderr) => {
-    callback()
+    if(!code) {
+      callback()
+    }
   })
 }
 
