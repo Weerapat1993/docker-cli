@@ -11,6 +11,7 @@ const {
   dockerRemoveContainer, 
   dockerTableImages, 
   dockerRemoveImages,
+  dockerCompose,
 } = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
@@ -31,6 +32,13 @@ const runInquirer = async () => {
   let isConfirm = true
   switch(data.docker_type) {
     // Docker Status
+    case Case.snake(COMMANDS.COMPOSE):
+      cmdName = 'docker-compose'
+      callback = () => dockerCompose(() => {
+        dockerPsAll('docker ps -a', dockerContainer)
+      })
+      isConfirm = false
+      break
     case Case.snake(COMMANDS.PS_ALL):
       cmdName = 'docker ps -a'
       callback = () => dockerPsAll(cmdName, dockerContainer)
