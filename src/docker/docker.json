@@ -10,34 +10,34 @@
   ],
   "containers": [
     {
-      "containerID": "12ec76781a99",
+      "containerID": "5b0710d4ba2e",
       "image": "redis",
       "command": "docker-entrypoint.s…",
-      "created": "7 months ago",
-      "status": "Exited (255) 2 weeks ago",
-      "status_server": false,
-      "port": "",
+      "created": "4 seconds ago",
+      "status": "Up 3 seconds ago",
+      "status_server": true,
+      "port": "0.0.0.0:6379->6379/tcp",
       "name": "redis"
     },
     {
-      "containerID": "cfb542705a5e",
-      "image": "kunai-express-react_web",
-      "command": "npm start",
-      "created": "8 months ago",
-      "status": "Exited (255) 8 months ago",
-      "status_server": false,
-      "port": "",
-      "name": "kunai-express-react_web_1"
+      "containerID": "1482a6cc4aab",
+      "image": "phpmyadmin/phpmyadmin",
+      "command": "/docker-entrypoint.…",
+      "created": "29 minutes ago",
+      "status": "Up 29 minutes ago",
+      "status_server": true,
+      "port": "0.0.0.0:8080->80/tcp",
+      "name": "phpmyadmin"
     },
     {
-      "containerID": "69952481e646",
-      "image": "mongo:latest",
+      "containerID": "15446a23da19",
+      "image": "mysql",
       "command": "docker-entrypoint.s…",
-      "created": "8 months ago",
-      "status": "Exited (255) 8 months ago",
-      "status_server": false,
-      "port": "",
-      "name": "kunai-express-react_db_1"
+      "created": "30 minutes ago",
+      "status": "Up 30 minutes ago",
+      "status_server": true,
+      "port": "0.0.0.0:3306->3306/tcp, 33060/tcp",
+      "name": "mysql_db_server"
     }
   ]
 }
