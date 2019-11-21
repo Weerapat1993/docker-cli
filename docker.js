@@ -16,7 +16,7 @@ const {
 } = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
-const userJSON = path('./src/docker/user.json')
+const userJSON = path('./log/user.json')
 
 const runInquirer = async () => {
   const dockerPull = fs.readJsonSync(dockerJSON)
