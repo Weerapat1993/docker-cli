@@ -154,11 +154,19 @@ const runInquirer = async () => {
             name: "email",
             message: "Email:",
             default: user.email,
+            validate: (value) => {
+              if(validate.min(value, 6)) return 'Please enter at least 6 characters.'
+              return true;
+            }
           },
           {
             type: INQUIRER.password,
             name: "password",
             message: "Password:",
+            validate: (value) => {
+              if(validate.min(value, 6)) return 'Please enter at least 6 characters.'
+              return true;
+            }
           },
         ])
         const fileJSON = {

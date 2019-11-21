@@ -11,7 +11,8 @@ const validate = {
     if (!value) return 'Please enter a valid number' 
     if (pass) return true
     return 'Please enter a valid number'
-  }
+  },
+  min: (value, number = 1) => value.length < number,
 }
 
 module.exports = validate
