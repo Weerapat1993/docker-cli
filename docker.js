@@ -16,6 +16,7 @@ const {
 } = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
+const userJSON = path('./src/docker/user.json')
 
 const runInquirer = async () => {
   const dockerPull = fs.readJsonSync(dockerJSON)
@@ -143,6 +144,36 @@ const runInquirer = async () => {
           console.log(chalk.green('\n[CREATE]: docker container success ...\n'))
         })
       }
+      break
+    // LOGIN
+    case Case.snake(COMMANDS.LOGIN):
+        const user = fs.readJsonSync(userJSON)
+        const form = await inquirer.prompt([
+          {
+            type: INQUIRER.input,
+            name: "email",
+            message: "Email:",
+            default: user.email,
+          },
+          {
+            type: INQUIRER.password,
+            name: "password",
+            message: "Password:",
+          },
+        ])
+        const fileJSON = {
+          ...user,
+          email: form.email,
+        }
+        fs.writeFileSync(userJSON, JSON.stringify(fileJSON, null, '  '))
+        cmdName = `curl -X POST '${process.env.CORE_API}/V1/integration/customer/token' -H 'Content-Type: application/json' -d '{"username": "${form.email}", "password": "${form.password}"}'`
+        callback = () => {
+          shell.exec(cmdName, { async: true, silent: true }, (code, stdout, stderr) => {
+            console.log(chalk.blue(stdout));
+            console.log(chalk.green('\nlogin success ...\n'))
+          })
+        }
+        isConfirm = false
       break
     default:
       cmdName = ''

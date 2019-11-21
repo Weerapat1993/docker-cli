@@ -16,6 +16,7 @@ const COMMANDS = {
   IMAGES: "Docker Remove Images",
   CREATE_CONTAINER: "Create Docker Container",
   CLEAN: "Docker Clean",
+  LOGIN: "Customer Login",
 }
 
 const HEADER = {
