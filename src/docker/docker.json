@@ -8,8 +8,8 @@
       "containerID": "0eb72fa69c2d",
       "image": "mongo",
       "command": "docker-entrypoint.s…",
-      "created": "3 days ago",
-      "status": "Exited (0) 3 days ago",
+      "created": "11 days ago",
+      "status": "Exited (0) 11 days ago",
       "status_server": false,
       "port": "",
       "name": "mongo"
@@ -18,10 +18,10 @@
       "containerID": "89402270b394",
       "image": "redis",
       "command": "docker-entrypoint.s…",
-      "created": "6 days ago",
-      "status": "Up 6 hours ago",
-      "status_server": true,
-      "port": "0.0.0.0:6379->6379/tcp",
+      "created": "2 weeks ago",
+      "status": "Exited (255) About an hour ago",
+      "status_server": false,
+      "port": "",
       "name": "redis"
     }
   ]

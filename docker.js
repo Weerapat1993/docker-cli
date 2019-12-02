@@ -145,41 +145,6 @@ const runInquirer = async () => {
         })
       }
       break
-    // LOGIN
-    case Case.snake(COMMANDS.LOGIN):
-        const user = fs.readJsonSync(userJSON)
-        const form = await inquirer.prompt([
-          {
-            type: INQUIRER.input,
-            name: "email",
-            message: "Email:",
-            default: user.email,
-            validate: (value) => validate.email(value),
-          },
-          {
-            type: INQUIRER.password,
-            name: "password",
-            message: "Password:",
-            validate: (value) => {
-              if(validate.min(value, 6)) return 'Please enter at least 6 characters.'
-              return true;
-            }
-          },
-        ])
-        const fileJSON = {
-          ...user,
-          email: form.email,
-        }
-        fs.writeFileSync(userJSON, JSON.stringify(fileJSON, null, '  '))
-        cmdName = `curl -X POST '${process.env.CORE_API}/V1/integration/customer/token' -H 'Content-Type: application/json' -d '{"username": "${form.email}", "password": "${form.password}"}'`
-        callback = () => {
-          shell.exec(cmdName, { async: true, silent: true }, (code, stdout, stderr) => {
-            console.log(chalk.blue(stdout));
-            console.log(chalk.green('\nlogin success ...\n'))
-          })
-        }
-        isConfirm = false
-      break
     default:
       cmdName = ''
   }
