@@ -110,7 +110,7 @@ const runInquirer = async () => {
           },
         }
       ])
-      cmdName = `docker build -t ${buildImage.name}`
+      cmdName = `docker build -t ${buildImage.name} .`
       callback = () => {
         shell.exec(cmdName, { async: true }, () => {
           console.log(chalk.green('\nbuild docker image success ...\n'))
