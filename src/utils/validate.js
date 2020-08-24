@@ -14,6 +14,7 @@ const validate = {
     if (pass) return true
     return 'Please enter a valid number'
   },
+  required: (value) => value.length > 0 ? true : 'value is required.',
   min: (value, number = 1) => value.length < number,
   email: (value) =>
     (!isEmpty(value) && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) ?

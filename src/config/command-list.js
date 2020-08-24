@@ -12,6 +12,7 @@ const COMMANDS = {
   PS_ALL: "Docker Container Status",
   COMPOSE: "Docker Compose",
   REMOVE: "Docker Remove Container",
+  BUILD_IMAGE: "Build Docker Image",
   PULL: "Docker Pull Images",
   IMAGES: "Docker Remove Images",
   CREATE_CONTAINER: "Create Docker Container",

@@ -16,7 +16,6 @@ const {
 } = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
-const userJSON = path('./log/user.json')
 
 const runInquirer = async () => {
   const dockerPull = fs.readJsonSync(dockerJSON)
@@ -89,6 +88,37 @@ const runInquirer = async () => {
       }
       isConfirm = false
       break
+    // Docker Build Image
+    case Case.snake(COMMANDS.BUILD_IMAGE):
+      const dockerImageNames = dockerPull.images.map(item => item)
+      const buildImage = await inquirer.prompt([
+        {
+          type: INQUIRER.input,
+          name: "name",
+          message: "Build Docker Image Name:",
+          filter: (value) => Case.kebab(value),
+          validate: (answer) => {
+            const name = validate.required(answer)
+            if(name !== true) {
+              return name;
+            }
+            const isTaken = dockerImageNames.includes(answer)
+            if(isTaken) {
+              return `'${answer}' has already been taken.`
+            }
+            return true;
+          },
+        }
+      ])
+      cmdName = `docker build -t ${buildImage.name}`
+      callback = () => {
+        shell.exec(cmdName, { async: true }, () => {
+          console.log(chalk.green('\nbuild docker image success ...\n'))
+          createDockerImages('docker images', dockerTableImages)
+          console.log(chalk.green('\nrun docker images lists success ...\n'))
+        })
+      }
+      break
     // Create Docker Container
     case Case.snake(COMMANDS.CREATE_CONTAINER):
       const dockers = dockerPull.images.map(item => ({
@@ -113,16 +143,16 @@ const runInquirer = async () => {
           message: "Docker Port:",
           validate: (value) => validate.number(value),
         },
-        {
-          type: INQUIRER.input,
-          name: "publish_volume",
-          message: "Publish Volume:",
-        },
-        {
-          type: INQUIRER.input,
-          name: "docker_volume",
-          message: "Docker Volume:",
-        },
+        // {
+        //   type: INQUIRER.input,
+        //   name: "publish_volume",
+        //   message: "Publish Volume:",
+        // },
+        // {
+        //   type: INQUIRER.input,
+        //   name: "docker_volume",
+        //   message: "Docker Volume:",
+        // },
         {
           type: INQUIRER.checkbox,
           name: "images",
