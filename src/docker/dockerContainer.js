@@ -3,7 +3,7 @@ const shell = require('shelljs')
 const chalk = require('chalk')
 const inquirer = require('inquirer')
 const { HEADER, INQUIRER } = require('../config/command-list')
-const { createTable, path, runConfirm } = require('../utils');
+const { createTable, path, runConfirm, validate } = require('../utils');
 const dockerJSON = path('./src/docker/docker.json');
 
 const dockerTableContainer = (containers) => {
@@ -165,8 +165,78 @@ const dockerPsAll = async (cmdName, callback) => {
   })
 }
 
+const dockerCreateContainer = async (imageName) => {
+  const dockerPull = fs.readJsonSync(dockerJSON)
+  let cmdName = ''
+  let callback = () => null
+  let isConfirm = true
+  const dockers = dockerPull.images.map(item => ({
+    name: item
+  }))
+  let menus = [
+    {
+      type: INQUIRER.input,
+      name: "name",
+      message: "Container Name:",
+    },
+    {
+      type: INQUIRER.input,
+      name: "publish_port",
+      message: "Publish Port:",
+      validate: (value) => validate.number(value),
+    },
+    {
+      type: INQUIRER.input,
+      name: "docker_port",
+      message: "Docker Port:",
+      validate: (value) => validate.number(value),
+    },
+    // {
+    //   type: INQUIRER.input,
+    //   name: "publish_volume",
+    //   message: "Publish Volume:",
+    // },
+    // {
+    //   type: INQUIRER.input,
+    //   name: "docker_volume",
+    //   message: "Docker Volume:",
+    // },
+  ]
+  if(!imageName) {
+    menus = [
+      ...menus,
+      {
+        type: INQUIRER.checkbox,
+        name: "images",
+        message: "Docker Images:",
+        choices: dockers,
+        filter: (value) => value.join(' '),
+        validate: (answer) => {
+          if (answer.length < 1) {
+            return 'You must choose at least one.';
+          }
+          return true;
+        }
+      },
+    ]
+  }
+  const container = await inquirer.prompt(menus)
+  const volume = (!container.publish_volume && !container.docker_volume) ? '' : `-v ${container.publish_volume}:${container.docker_volume}`
+  const containerName = container.name ? `--name ${container.name}` : ''
+  cmdName = `docker run ${containerName} -p ${container.publish_port}:${container.docker_port} ${volume} -d ${imageName || container.images}`
+  callback = () => {
+    shell.exec(cmdName, { async: true }, () => {
+      console.log(chalk.green('\n[CREATE]: docker container success ...\n'))
+    })
+  }
+
+  // Run Command
+  await runConfirm(cmdName, callback, isConfirm)
+}
+
 exports.dockerContainer = dockerContainer;
 exports.dockerPsAll = dockerPsAll;
 exports.dockerTableContainer = dockerTableContainer;
+exports.dockerCreateContainer = dockerCreateContainer;
 
 

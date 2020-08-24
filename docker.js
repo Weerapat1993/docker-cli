@@ -13,6 +13,7 @@ const {
   dockerRemoveImages,
   dockerCompose,
   dockerClean,
+  dockerCreateContainer,
 } = require('./src/docker')
 const { validate, path, runConfirm } = require('./src/utils')
 const dockerJSON = path('./src/docker/docker.json')
@@ -111,69 +112,27 @@ const runInquirer = async () => {
       ])
       cmdName = `docker build -t ${buildImage.name} .`
       callback = () => {
-        shell.exec(cmdName, { async: true }, () => {
-          console.log(chalk.green('\nbuild docker image success ...\n'))
-          createDockerImages('docker images', dockerTableImages)
-          console.log(chalk.green('\nrun docker images lists success ...\n'))
+        shell.exec(cmdName, { async: true }, async () => {
+          await console.log(chalk.green('\nbuild docker image success ...\n'))
+          const confirm = await inquirer.prompt([
+            {
+              type: INQUIRER.confirm,
+              name: "isConfirm",
+              message: `Do you want to create new container with ${buildImage.name} ?`,
+            }
+          ])
+          if(confirm.isConfirm) {
+            dockerCreateContainer(buildImage.name)
+          } else {
+            console.log(chalk.red('Error: Exit.'))
+          }
         })
       }
       break
     // Create Docker Container
     case Case.snake(COMMANDS.CREATE_CONTAINER):
-      const dockers = dockerPull.images.map(item => ({
-        name: item
-      }))
-      const container = await inquirer.prompt([
-        {
-          type: INQUIRER.input,
-          name: "name",
-          message: "Container Name:",
-        },
-        {
-          type: INQUIRER.input,
-          name: "publish_port",
-          message: "Publish Port:",
-          validate: (value) => validate.number(value),
-        },
-        {
-          type: INQUIRER.input,
-          name: "docker_port",
-          message: "Docker Port:",
-          validate: (value) => validate.number(value),
-        },
-        // {
-        //   type: INQUIRER.input,
-        //   name: "publish_volume",
-        //   message: "Publish Volume:",
-        // },
-        // {
-        //   type: INQUIRER.input,
-        //   name: "docker_volume",
-        //   message: "Docker Volume:",
-        // },
-        {
-          type: INQUIRER.checkbox,
-          name: "images",
-          message: "Docker Images:",
-          choices: dockers,
-          filter: (value) => value.join(' '),
-          validate: (answer) => {
-            if (answer.length < 1) {
-              return 'You must choose at least one.';
-            }
-            return true;
-          }
-        },
-      ])
-      const volume = (!container.publish_volume && !container.docker_volume) ? '' : `-v ${container.publish_volume}:${container.docker_volume}`
-      const containerName = container.name ? `--name ${container.name}` : ''
-      cmdName = `docker run ${containerName} -p ${container.publish_port}:${container.docker_port} ${volume} -d ${container.images}`
-      callback = () => {
-        shell.exec(cmdName, { async: true }, () => {
-          console.log(chalk.green('\n[CREATE]: docker container success ...\n'))
-        })
-      }
-      break
+      dockerCreateContainer()
+      return;
     default:
       cmdName = ''
   }
