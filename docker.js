@@ -96,7 +96,6 @@ const runInquirer = async () => {
           type: INQUIRER.input,
           name: "name",
           message: "Build Docker Image Name:",
-          filter: (value) => Case.kebab(value),
           validate: (answer) => {
             const name = validate.required(answer)
             if(name !== true) {
@@ -129,7 +128,6 @@ const runInquirer = async () => {
           type: INQUIRER.input,
           name: "name",
           message: "Container Name:",
-          filter: (value) => Case.snake(value) || 'container_name'
         },
         {
           type: INQUIRER.input,
@@ -168,7 +166,8 @@ const runInquirer = async () => {
         },
       ])
       const volume = (!container.publish_volume && !container.docker_volume) ? '' : `-v ${container.publish_volume}:${container.docker_volume}`
-      cmdName = `docker run --name ${container.name} -p ${container.publish_port}:${container.docker_port} ${volume} -d ${container.images}`
+      const containerName = container.name ? `--name ${container.name}` : ''
+      cmdName = `docker run ${containerName} -p ${container.publish_port}:${container.docker_port} ${volume} -d ${container.images}`
       callback = () => {
         shell.exec(cmdName, { async: true }, () => {
           console.log(chalk.green('\n[CREATE]: docker container success ...\n'))
