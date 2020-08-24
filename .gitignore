@@ -5,3 +5,5 @@ yarn.lock
 log*
 
 .env
+
+src/docker/docker.json
